@@ -1,0 +1,323 @@
+﻿{% extends 'main/base.html' %}
+{% block title %} SIGNUP {% endblock %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div class="topnav" id="myTopnav">
+        <a href='/'><img id='logo' src = "/media/images/logo.png", height=38, width=41></a>
+        <a href='/' id='home'><div id ='linke1'><i id='home_icon' class="fa fa-home"></i> Home</div></a>
+        <a href='/' id='home'><div id ='linkh1' hidden><i id='home_icon' class="fa fa-home"></i> होमपेज</div></a>
+        <a href='/login' id='login_home'><div id ='linke3'><i id='login_icon' class="fa fa-user"></i> Login</div></a>
+        <a href='/login' id='login_home'><div id ='linkh3' hidden><i id='login_icon' class="fa fa-user"></i> लॉग इन</div></a>
+        <a href='/admin' id='login_home'><div id ='linke4'><i id='login_icon' class="fa fa-user-circle"></i> Admin</div></a>
+        <a href='/admin' id='login_home'><div id ='linkh4' hidden><i id='login_icon' class="fa fa-user-circle"></i> प्रशासन</div></a>
+        <a href='/contact' id='contact_home'><div id ='linke5'><i id='phone_icon' class="fa fa-phone"></i> Contact </div></a>
+        <a href='/contact' id='contact_home'><div id ='linkh5' hidden><i id='phone_icon' class="fa fa-phone"></i> संपर्क करें</div></a>
+        <a id='select_lang'><select class="lang" name="language" onchange="call()" id='language'>
+            <option value='english'>English</option>
+            <option value='hindi'>Hindi</option>
+        </select></a>
+        <a href="javascript:void(0);" class="icon" onclick="myFunction()"><i id='bars' class="fa fa-bars"></i></a>
+    </div>
+
+    <div id='div_english'>
+        <form method='POST'>
+            {% csrf_token %}
+            <div class='header_student'>
+                <div class='row'>
+                    <div class='logo'>
+                        <a href='/'><img id='logo_id' src = "/media/images/logo.png", height=270, width=275></a>
+                    </div>
+                    <div class='title'>
+                        <h1 id='row1'>Agricultral and Rural Departement</h1>
+                        <h1 id='row2'>(Govt. of Bihar)</h1> 
+                    </div>
+                </div>
+            </div>
+
+            <div class="main_signup animated bounceInLeft">
+                <h1 id='log'><b> Sign Up </b></h1>
+                <div class="row">
+                    <div class="col3">
+                        <select id="region" name="region" class='select_login' required>
+                            <option value=''>--Region--</option>
+                            <option value='Araria'>Araria</option>
+                            <option value='Arwal'>Arwal</option>
+                            <option value='Aurangabad'>Aurangabad</option>
+                            <option value='Banka'>Banka</option>
+                            <option value='Begusarai'>Begusarai</option>
+                            <option value='Bhagalpur'>Bhagalpur</option>
+                            <option value='Bhojpur'>Bhojpur</option>
+                            <option value='Buxar'>Buxar</option>
+                            <option value='Darbhanga'>Darbhanga</option>
+                            <option value='East_Champaran'>East Champaran</option>
+                            <option value='Gaya'>Gaya</option>
+                            <option value='Gopalganj'>Gopalganj</option>
+                            <option value='Jamui'>Jamui</option>
+                            <option value='Jehanabad'>Jehanabad</option>
+                            <option value='Khagaria'>Khagaria</option>
+                            <option value='Kishanganj'>Kishanganj</option>
+                            <option value='Kaimur'>Kaimur</option>
+                            <option value='Katihar'>Katihar</option>
+                            <option value='Lakshisarai'>Lakshisarai</option>
+                            <option value='Madhubani'>Madhubani</option>
+                            <option value='Munger'>Munger</option>
+                            <option value='Madhepura'>Madhepura</option>
+                            <option value='Muzaffarpur'>Muzaffarpur</option>
+                            <option value='Nalanda'>Nalanda</option>
+                            <option value='Nawada'>Nawada</option>
+                            <option value='Patna'>Patna</option>
+                            <option value='Purnia'>Purnia</option>
+                            <option value='Rohtas'>Rohtas</option>
+                            <option value='Saharsa'>Saharsa</option>
+                            <option value='Samastipur'>Samastipur</option>
+                            <option value='Sheohar'>Sheohar</option>
+                            <option value='Sheikhpura'>Sheikhpura</option>
+                            <option value='Saran'>Saran</option>
+                            <option value='Sitamarhi'>Sitamarhi</option>
+                            <option value='Supaul'>Supaul</option>
+                            <option value='Siwan'>Siwan</option>
+                            <option value='Vaishali'>Vaishali</option>
+                            <option value='West_Champaran'>West Champaran</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="rowt">
+                    <div class="field1">
+                        <input type='text' name='firstname' placeholder='First Name*' required>
+                    </div>
+
+                    <div class="field2">
+                        <input type='text' name='lastname' placeholder='Last Name'>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col2">
+                        <input type='text' name='aadhar' placeholder='Aadhar Number*' pattern="\d{12}" title=' 12 digits are required ' required>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col2">
+                        <input type='text' name='phone' placeholder='Phone Number*' pattern="\d{10}" title=' 10 digits are required ' required>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col2">
+                        <input type='email' name='email' placeholder='Email*' required>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col2">
+                        <input type='password' name='password1' id='pass1_english' placeholder='Password*' minlength='7' maxlength='15' title='Password is too short (minimum is 7 characters) ' required>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col2">
+                        <input type='password' name='password2' placeholder='Re-enter Password*' required>
+                    </div>
+                </div>
+
+                {% if messages %}
+                    {% for message in messages %}
+                        <div>
+                            <h3 id='message'>{{ message }}</h3>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+                <div class='rowt'>
+                    <input type='submit' name='save' value='Sign Up' id='reg_btn'>
+                </div>
+
+                <div class='rowt'>
+                    <h3 id='a'>Already have an account? <a href="/login">Log In</a>
+                </div>
+            </div>
+        </form>
+        <p align="center" id='about_data'><b> COPYRIGHT &copy; by Bihar Govt </b></p>
+    </div>
+
+
+    <div id='div_hindi' hidden>
+        <form method='POST'>
+            {% csrf_token %}
+            <div class='header_student'>
+                <div class='row'>
+                    <div class='logo'>
+                        <a href='/'><img id='logo_id' src = "/media/images/logo.png", height=270, width=275></a>
+                    </div>
+                    <div class='title'>
+                        <h1 id='row1'>कृषि और ग्रामीण विभाग</h1>
+                        <h1 id='row2'>(बिहार सरकार)</h1> 
+                    </div>
+                </div>
+            </div>
+
+            <div class="main_signup animated bounceInLeft">
+                <h1 id='log'><b> पंजीकरण </b></h1>
+                <div class="row">
+                    <div class="col3">
+                        <select id="region" name="region" class='select_login' required>
+                            <option value=''>--क्षेत्र--</option>
+                            <option value='Araria'>अररिया</option>
+                            <option value='Arwal'>अरवल</option>
+                            <option value='Aurangabad'>औरंगाबाद</option>
+                            <option value='Banka'>बांका</option>
+                            <option value='Begusarai'>बेगूसराय</option>
+                            <option value='Bhagalpur'>भागलपुर</option>
+                            <option value='Bhojpur'>भोजपुर</option>
+                            <option value='Buxar'>बक्सर</option>
+                            <option value='Darbhanga'>दरभंगा</option>
+                            <option value='East_Champaran'>पूर्व चंपारण</option>
+                            <option value='Gaya'>गया</option>
+                            <option value='Gopalganj'>गोपालगंज</option>
+                            <option value='Jamui'>जमुई</option>
+                            <option value='Jehanabad'>जहानाबाद</option>
+                            <option value='Khagaria'>खगरिया</option>
+                            <option value='Kishanganj'>किशनगंज</option>
+                            <option value='Kaimur'>कैमूर</option>
+                            <option value='Katihar'>कटिहार</option>
+                            <option value='Lakshisarai'>लखीसराय</option>
+                            <option value='Madhubani'>मधुबनी</option>
+                            <option value='Munger'>मुंगेर</option>
+                            <option value='Madhepura'>मधेपुरा</option>
+                            <option value='Muzaffarpur'>मुजफ्फरपुर</option>
+                            <option value='Nalanda'>नालंदा</option>
+                            <option value='Nawada'>नवादा</option>
+                            <option value='Patna'>पटना</option>
+                            <option value='Purnia'>पूर्णियाँ</option>
+                            <option value='Rohtas'>रोहतास</option>
+                            <option value='Saharsa'>सहरसा</option>
+                            <option value='Samastipur'>समस्तीपुर</option>
+                            <option value='Sheohar'>शीओर</option>
+                            <option value='Sheikhpura'>शेखपुरा</option>
+                            <option value='Saran'>सरण</option>
+                            <option value='Sitamarhi'>सीतामढ़ी</option>
+                            <option value='Supaul'>सुपौल</option>
+                            <option value='Siwan'>सिवान</option>
+                            <option value='Vaishali'>वैशाली</option>
+                            <option value='West_Champaran'>पश्चिम चंपारण</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="rowt">
+                    <div class="field1">
+                        <input type='text' name='firstname' placeholder='पहला नाम*' required>
+                    </div>
+
+                    <div class="field2">
+                        <input type='text' name='lastname' placeholder='अंतिम नाम*'>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col2">
+                        <input type='text' name='aadhar' placeholder='आधार संख्या*' pattern="\d{12}" title=' 12 अंक आवश्यक हैं ' required>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col2">
+                        <input type='text' name='phone' placeholder='फोन नंबर*' pattern="\d{10}" title=' 10 अंक आवश्यक हैं' required>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col2">
+                        <input type='email' name='email' placeholder='ईमेल*' required>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col2">
+                        <input type='password' name='password1' id='pass1_hindi' placeholder='पासवर्ड*' minlength='7' maxlength='15' title='पासवर्ड बहुत छोटा है (न्यूनतम 7 अंक है) ' required>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col2">
+                        <input type='password' name='password2' placeholder='पासवर्ड फिर से दर्ज करें*' required>
+                    </div>
+                </div>
+
+                {% if messages %}
+                    {% for message in messages %}
+                        <div>
+                            <h3 id='message'>{{ message }}</h3>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+                <div class='rowt'>
+                    <input type='submit' name='save' value='पंजीकरण करें' id='reg_btn'>
+                </div>
+
+                <div class='rowt'>
+                    <h3 id='a'>क्या आपके पास पहले से एक खाता मौजूद है? <a href="/login">आवदेन करें</a>
+                </div>
+            </div>
+        </form>
+        <p align="center" id='about_data'><b> कॉपीराइट &copy; बाइ बिहार सरकार </b></p>
+    </div>
+
+    <script>
+        window.onload = language()
+        window.onload = call()
+    
+        function call(){
+            var s1 = document.getElementById('language');
+            if (s1.value == 'english'){
+                document.getElementById("div_english").style.display = "block";
+                document.getElementById("linke1").style.display = "block";
+                document.getElementById("linke3").style.display = "block";
+                document.getElementById("linke4").style.display = "block";
+                document.getElementById("linke5").style.display = "block";
+                document.getElementById("div_hindi").style.display = "none";
+                document.getElementById("linkh1").style.display = "none";;
+                document.getElementById("linkh3").style.display = "none";
+                document.getElementById("linkh4").style.display = "none";
+                document.getElementById("linkh5").style.display = "none";
+                localStorage.setItem("lang", "english");
+            }
+            else if(s1.value == 'hindi'){
+                document.getElementById("div_english").style.display = "none";
+                document.getElementById("linke1").style.display = "none";
+                document.getElementById("linke3").style.display = "none";
+                document.getElementById("linke4").style.display = "none";
+                document.getElementById("linke5").style.display = "none";
+                document.getElementById("div_hindi").style.display = "block";
+                document.getElementById("linkh1").style.display = "block";
+                document.getElementById("linkh3").style.display = "block";
+                document.getElementById("linkh4").style.display = "block";
+                document.getElementById("linkh5").style.display = "block";
+                localStorage.setItem("lang", "hindi");
+            }
+        } 
+
+        function language(){  
+            var lang = localStorage.getItem("lang");
+            document.getElementById("language").value = lang;
+        } 
+
+        function myFunction() {
+        var x = document.getElementById("myTopnav");
+        if (x.className === "topnav") {
+            x.className += " responsive";
+        } else {
+            x.className = "topnav";
+            }
+        }       
+    </script>
+<!-- !Disclaimer - you must not use this website's template in as it is form - please feel free 
+to contact me @ chiragchauhan12323@gmail.com for the source code and implementation in your use case -
+After all I too did take some help from the community -->
+{% endblock %}

@@ -1,0 +1,114 @@
+{% extends 'main/base.html' %}
+{% block title %} SUBMITTED {% endblock %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div class="topnav" id="myTopnav">
+        <a href='/'><img id='logo' src = "/media/images/logo.png", height=38, width=41></a>
+        <a href='/' id='home'><div id ='linke1'><i id='home_icon' class="fa fa-home"></i> Home</div></a>
+        <a href='/' id='home'><div id ='linkh1' hidden><i id='home_icon' class="fa fa-home"></i> होमपेज</div></a>
+        <a href='/profile' id='home'><div id ='linke2'><i id='home_icon' class="fa fa-user-circle"></i> Profile</div></a>
+        <a href='/profile' id='home'><div id ='linkh2' hidden><i id='home_icon' class="fa fa-user-circle"></i> प्रोफ़ाइल</div></a>
+        <a href='/feedback' id='home'><div id ='linke3'><i id='home_icon' class="fa fa-commenting"></i> Feedback</div></a>
+        <a href='/feedback' id='home'><div id ='linkh3' hidden><i id='home_icon' class="fa fa-commenting"></i> प्रतिपुष्टि</div></a>
+        <a href='/contact' id='contact_home'><div id ='linke4'><i id='phone_icon' class="fa fa-phone"></i> Contact </div></a>
+        <a href='/contact' id='contact_home'><div id ='linkh4' hidden><i id='phone_icon' class="fa fa-phone"></i> संपर्क करें</div></a>
+        <a id='btn'>
+            <form method='POST'>
+                {% csrf_token %} 
+                <input type='submit' name='lsave' value='Logout' id='logout_btn'>
+            </form>
+        </a>  
+        <a id='select_lang'><select class="lang" name="language" onchange="call()" id='language'>
+            <option value='english'>English</option>
+            <option value='hindi'>Hindi</option>
+        </select></a>
+        <a href="javascript:void(0);" class="icon" onclick="myFunction()"><i id='bars' class="fa fa-bars"></i></a>
+    </div>
+
+    <div id='div_english'>
+        <form method='POST'>
+            {% csrf_token %}
+            <div class='header'>
+                <div class='row'>
+                    <div class='logo_m'>
+                    <a href='/'><img id='logo_id_m' src = "/media/images/logo.png", height=270, width=275></a>
+                </div>
+                <div class='title_m'>
+                    <h1 id='row1_m'>Agricultral and Rural Departement</h1>
+                    <h1 id='row2_m'>(Govt. of Bihar)</h1>
+                    </div>
+                </div>
+            </div>
+
+            <div class='output'>
+                <div class='main_table'>
+                    <div class='row'>
+                    <h1 align='center' id='suggest'> Suggestions for the next Crop Cycle </h1>
+                </div>
+                    <table id='table_suggestions'>
+                        <tr id='tr'>
+                            <th id='th'>Sr. No</th>
+                            <th id='th'>Category</th>
+                            <th id='th'>Farmer</th>
+                            <th id='th'>Farm Science Expert</th>
+                        </tr>
+
+                        <tr>
+                            <td id='td' style="text-align:center;"> 1. </td>
+                            <td id='td' style="text-align:center;"> Region</td>
+                            <td id='td' style="text-align:center;"> {{ farmer_region }} </td>
+                            <td id='td' style="text-align:center;"> {{ expert_region }} </td>
+                        </tr>
+
+                        <tr>
+                            <td id='td' style="text-align:center;"> 2. </td>
+                            <td id='td' style="text-align:center;"> Area </td>
+                            <td id='td' style="text-align:center;"> {{ farmer_area }} </td>
+                            <td id='td' style="text-align:center;"> {{ expert_area }} </td>
+                        </tr>
+
+                        <tr>
+                            <td id='td' style="text-align:center;"> 3. </td>
+                            <td id='td' style="text-align:center;"> Crop Name</td>
+                            <td id='td' style="text-align:center;"> {{ farmer_name }} </td>
+                            <td id='td' style="text-align:center;"> {{ expert_name }} </td>
+                        </tr>
+
+                        <tr>
+                            <td id='td' style="text-align:center;"> 4. </td>
+                            <td id='td' style="text-align:center;"> Irrigation </td>
+                            <td id='td' style="text-align:center;"> {{ farmer_irrigation }} </td>
+                            <td id='td' style="text-align:center;"> {{ expert_irrigation }} </td>
+                        </tr>
+
+                        <tr>
+                            <td id='td' style="text-align:center;"> 5. </td>
+                            <td id='td' style="text-align:center;"> Fertilizers </td>
+                            <td id='td' style="text-align:center;"> {{ farmer_fertilizers }} </td>
+                            <td id='td' style="text-align:center;"> {{ expert_fertilizers }} </td>
+                        </tr>
+
+                        <tr>
+                            <td id='td' style="text-align:center;"> 6. </td>
+                            <td id='td' style="text-align:center;"> Pesticides </td>
+                            <td id='td' style="text-align:center;"> {{ farmer_pesticides }} </td>
+                            <td id='td' style="text-align:center;"> {{ expert_pesticides }} </td>
+                        </tr>
+
+                    </table>
+                </div>
+                <div class='row'>
+                    <a href='/'><input type='submit' name='submit_save' value='OK' id='ok_btn'></a>
+                </div>
+            </div>
+        </form>
+        <p align="center" id='about_data'><b>COPYRIGHT &copy; 2014-2020 GTC </b></p>
+    </div>
+
+<!-- !Disclaimer - you must not use this website's template in as it is form - please feel free 
+to contact me @ chiragchauhan12323@gmail.com for the source code and implementation in your use case -
+After all I too did take some help from the community -->
+{% endblock %}

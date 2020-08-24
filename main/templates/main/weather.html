@@ -1,0 +1,471 @@
+﻿{% extends 'main/base.html' %}
+{% block title %} WEATHER STATION COORDINATOR {% endblock %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div class="topnav" id="myTopnav">
+        <a href='/'><img id='logo' src = "/media/images/logo.png", height=38, width=41></a>
+        <a href='/' id='home' class="active"><div id ='linke1'><i id='home_icon' class="fa fa-home"></i> Home</div></a>
+        <a href='/' id='home' class="active"><div id ='linkh1' hidden><i id='home_icon' class="fa fa-home"></i> होमपेज</div></a>
+        <a href='/contact' id='contact_home'><div id ='linke2'><i id='phone_icon' class="fa fa-phone"></i> Contact </div></a>
+        <a href='/contact' id='contact_home'><div id ='linkh2' hidden><i id='phone_icon' class="fa fa-phone"></i> संपर्क करें</div></a>
+        <a id='btn'>
+            <form method='POST'>
+                {% csrf_token %} 
+                <input type='submit' name='lsave' value='Logout' id='logout_btn'>
+            </form>
+        </a>  
+        <a id='select_lang'><select class="lang" name="language" onchange="call()" id='language'>
+            <option value='english'>English</option>
+            <option value='hindi'>Hindi</option>
+        </select></a>
+        <a href="javascript:void(0);" class="icon" onclick="myFunction()"><i id='bars' class="fa fa-bars"></i></a>
+    </div>
+
+    <div id='div_english'>
+        <div class='header_student'>
+            <div class='row'>
+                <div class='logo_m'>
+                    <a href='/'><img id='logo_id_m' src = "/media/images/logo.png", height=270, width=275></a>
+                </div>
+                <div class='title_m'>
+                    <h1 id='row1_m'>Agricultral and Rural Departement</h1>
+                    <h1 id='row2_m'>(Govt. of Bihar)</h1> 
+                </div>
+            </div>
+        </div>
+    
+        <div class="main_farmer animated bounceInLeft">
+            <div class="rowt">
+                <h1 id='log_weather'><b> Hello Weather Coordinator</b></h1>
+            </div>
+
+            {% if messages %}
+                {% for message in messages %}
+                    <div>
+                        <h3 id='message'>{{ message }}</h3>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <form method='POST'>
+                {% csrf_token %}
+                <div class="rowt">
+                    <div class='label'>
+                        <label>Region*</label>
+                    </div>
+                    <div class="field">
+                        <select id="region" name="region" class='select_login' required>
+                            <option value=''>--Region--</option>
+                            <option value='Araria'>Araria</option>
+                            <option value='Arwal'>Arwal</option>
+                            <option value='Aurangabad'>Aurangabad</option>
+                            <option value='Banka'>Banka</option>
+                            <option value='Begusarai'>Begusarai</option>
+                            <option value='Bhagalpur'>Bhagalpur</option>
+                            <option value='Bhojpur'>Bhojpur</option>
+                            <option value='Buxar'>Buxar</option>
+                            <option value='Darbhanga'>Darbhanga</option>
+                            <option value='East_Champaran'>East Champaran</option>
+                            <option value='Gaya'>Gaya</option>
+                            <option value='Gopalganj'>Gopalganj</option>
+                            <option value='Jamui'>Jamui</option>
+                            <option value='Jehanabad'>Jehanabad</option>
+                            <option value='Khagaria'>Khagaria</option>
+                            <option value='Kishanganj'>Kishanganj</option>
+                            <option value='Kaimur'>Kaimur</option>
+                            <option value='Katihar'>Katihar</option>
+                            <option value='Lakshisarai'>Lakshisarai</option>
+                            <option value='Madhubani'>Madhubani</option>
+                            <option value='Munger'>Munger</option>
+                            <option value='Madhepura'>Madhepura</option>
+                            <option value='Muzaffarpur'>Muzaffarpur</option>
+                            <option value='Nalanda'>Nalanda</option>
+                            <option value='Nawada'>Nawada</option>
+                            <option value='Patna'>Patna</option>
+                            <option value='Purnia'>Purnia</option>
+                            <option value='Rohtas'>Rohtas</option>
+                            <option value='Saharsa'>Saharsa</option>
+                            <option value='Samastipur'>Samastipur</option>
+                            <option value='Sheohar'>Sheohar</option>
+                            <option value='Sheikhpura'>Sheikhpura</option>
+                            <option value='Saran'>Saran</option>
+                            <option value='Sitamarhi'>Sitamarhi</option>
+                            <option value='Supaul'>Supaul</option>
+                            <option value='Siwan'>Siwan</option>
+                            <option value='Vaishali'>Vaishali</option>
+                            <option value='West_Champaran'>West Champaran</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="rowt">
+                    <div class='label'>
+                        <label>Year*</label>
+                    </div>
+                    <div class="field">
+                        <select id="crop_year" name="crop_year" class='select_login' required>
+                            <option value=''>--Year--</option>
+                            <option value='2019'>2019</option>
+                            <option value='2020'>2020</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="rowt">
+                    <div class='label'>
+                        <label>Month*</label>
+                    </div>
+                    <div class="field">
+                        <select id="month" name="month" class='select_login' required>
+                            <option value=''>--Month--</option>
+                            <option value='1'>January</option>
+                            <option value='2'>February</option>
+                            <option value='3'>March</option>
+                            <option value='4'>April</option>
+                            <option value='5'>May</option>
+                            <option value='6'>June</option>
+                            <option value='7'>July</option>
+                            <option value='8'>August</option>
+                            <option value='9'>September</option>
+                            <option value='10'>October</option>
+                            <option value='11'>November</option>
+                            <option value='12'>December</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="rowt">
+                    <div class='label'>
+                        <label>Average Day Temp*</label>
+                    </div>
+                    <div class="field">
+                        <input type='number' name='day_temp' placeholder='Average Day Temp(Celsius)*' step="0.01"  min=0 max='60' required>
+                    </div>
+                </div>
+
+                <div class="rowt">
+                    <div class='label'>
+                        <label>Average Night Temp*</label>
+                    </div>
+                    <div class="field">
+                        <input type='number' name='night_temp' placeholder='Average Night Temp(Celsius)*' step="0.01"  min=0 max='60' required>
+                    </div>
+                </div>
+
+                <div class="rowt">
+                    <div class='label'>
+                        <label>Average Rainfall*</label>
+                    </div>
+                    <div class="field">
+                    <input type='text' name='rainfall' id='rainfall' placeholder='Average Rainfall(cm)' step="0.01"  min=0 required>
+                    </div>
+                </div>
+
+                <div class="rowt">
+                    <div class='labelr'>
+                        <label>Floods*</label>
+                    </div>
+                    <div class="fieldr">
+                        <div class='rowt'>
+                            <div class='radio1'>
+                                <label class="containert">Yes<input type="radio" name='flood' value='Yes' class='radio'><span class="checkmark"></span></label>
+                            </div>
+                            <div class='radio2'>
+                                <label class="containert">No<input type="radio" name='flood' value='No' class='radio'><span class="checkmark"></span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="rowt">
+                    <div class='labelr'>
+                        <label>Droughts*</label>
+                    </div>
+                    <div class="fieldr">
+                        <div class='rowt'>
+                            <div class='radio1'>
+                                <label class="containert">Yes<input type="radio" name='drought' value='Yes' class='radio'><span class="checkmark"></span></label>
+                            </div>
+                            <div class='radio2'>
+                                <label class="containert">No<input type="radio" name='drought' value='No' class='radio'><span class="checkmark"></span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="rowt">
+                    <div class='labelr'>
+                        <label>Fire*</label>
+                    </div>
+                    <div class="fieldr">
+                        <div class='rowt'>
+                            <div class='radio1'>
+                                <label class="containert">Yes<input type="radio" name='fire' value='Yes' class='radio'><span class="checkmark"></span></label>
+                            </div>
+                            <div class='radio2'>
+                                <label class="containert">No<input type="radio" name='fire' value='No' class='radio'><span class="checkmark"></span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {% if messages %}
+                    {% for message in messages %}
+                        <div>
+                            <h3 id='message'>{{ message }}</h3>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+                <div class='rowt'>
+                    <input type='submit' name='save' value='Submit' id='submit_btn'>
+                </div>
+            </form>
+        </div>
+        <p align="center" id='about_data'><b>COPYRIGHT &copy; by Bihar Govt </b></p>
+    </div>
+
+
+    <div id='div_hindi' hidden>
+        <div class='header_student'>
+            <div class='row'>
+                <div class='logo_m'>
+                    <a href='/'><img id='logo_id_m' src = "/media/images/logo.png", height=270, width=275></a>
+                </div>
+                <div class='title_m'>
+                    <h1 id='row1_m'>कृषि और ग्रामीण विभाग</h1>
+                    <h1 id='row2_m'>(बिहार सरकार)</h1>
+                </div>
+            </div>
+        </div>
+    
+        <div class="main_farmer animated bounceInLeft">
+            <div class="rowt">
+                <h1 id='log_weather'><b> नमस्ते मौसम केंद्र समन्वयक</b></h1>
+            </div>
+
+            {% if messages %}
+                {% for message in messages %}
+                    <div>
+                        <h3 id='message'>{{ message }}</h3>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <form method='POST'>
+                {% csrf_token %}
+                <div class="rowt">
+                    <div class='label'>
+                        <label>क्षेत्र*</label>
+                    </div>
+                    <div class="field">
+                        <select id="region" name="region" class='select_login' required>
+                            <option value=''>--क्षेत्र--</option>
+                            <option value='Araria'>अररिया</option>
+                            <option value='Arwal'>अरवल</option>
+                            <option value='Aurangabad'>औरंगाबाद</option>
+                            <option value='Banka'>बांका</option>
+                            <option value='Begusarai'>बेगूसराय</option>
+                            <option value='Bhagalpur'>भागलपुर</option>
+                            <option value='Bhojpur'>भोजपुर</option>
+                            <option value='Buxar'>बक्सर</option>
+                            <option value='Darbhanga'>दरभंगा</option>
+                            <option value='East_Champaran'>पूर्व चंपारण</option>
+                            <option value='Gaya'>गया</option>
+                            <option value='Gopalganj'>गोपालगंज</option>
+                            <option value='Jamui'>जमुई</option>
+                            <option value='Jehanabad'>जहानाबाद</option>
+                            <option value='Khagaria'>खगरिया</option>
+                            <option value='Kishanganj'>किशनगंज</option>
+                            <option value='Kaimur'>कैमूर</option>
+                            <option value='Katihar'>कटिहार</option>
+                            <option value='Lakshisarai'>लखीसराय</option>
+                            <option value='Madhubani'>मधुबनी</option>
+                            <option value='Munger'>मुंगेर</option>
+                            <option value='Madhepura'>मधेपुरा</option>
+                            <option value='Muzaffarpur'>मुजफ्फरपुर</option>
+                            <option value='Nalanda'>नालंदा</option>
+                            <option value='Nawada'>नवादा</option>
+                            <option value='Patna'>पटना</option>
+                            <option value='Purnia'>पूर्णियाँ</option>
+                            <option value='Rohtas'>रोहतास</option>
+                            <option value='Saharsa'>सहरसा</option>
+                            <option value='Samastipur'>समस्तीपुर</option>
+                            <option value='Sheohar'>शीओर</option>
+                            <option value='Sheikhpura'>शेखपुरा</option>
+                            <option value='Saran'>सरण</option>
+                            <option value='Sitamarhi'>सीतामढ़ी</option>
+                            <option value='Supaul'>सुपौल</option>
+                            <option value='Siwan'>सिवान</option>
+                            <option value='Vaishali'>वैशाली</option>
+                            <option value='West_Champaran'>पश्चिम चंपारण</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="rowt">
+                    <div class='label'>
+                        <label>साल*</label>
+                    </div>
+                    <div class="field">
+                        <select id="crop_year" name="crop_year" class='select_login' required>
+                            <option value=''>--Year--</option>
+                            <option value='2019'>2019</option>
+                            <option value='2020'>2020</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="rowt">
+                    <div class='label'>
+                        <label>महीना*</label>
+                    </div>
+                    <div class="field">
+                        <select id="month" name="month" class='select_login' required>
+                            <option value=''>--महीना--</option>
+                            <option value='1'>जन्वरी</option>
+                            <option value='2'>फेब्रुवरी</option>
+                            <option value='3'>मार्च</option>
+                            <option value='4'>एप्रिल</option>
+                            <option value='5'>मयी</option>
+                            <option value='6'>जून</option>
+                            <option value='7'>जुलाइ</option>
+                            <option value='8'>ऑगस्ट</option>
+                            <option value='9'>सेप्टेंबर</option>
+                            <option value='10'>अक्टोबर</option>
+                            <option value='11'>नवेंबर</option>
+                            <option value='12'>डिसेंबर</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="rowt">
+                    <div class='label'>
+                        <label>औसत दिन का तापमान*</label>
+                    </div>
+                    <div class="field">
+                        <input type='number' name='day_temp' placeholder='औसत दिन का तापमान (सेल्सियस)*' step="0.01"  min=0 max='60' required>
+                    </div>
+                </div>
+
+                <div class="rowt">
+                    <div class='label'>
+                        <label>औसत रात का तापमान*</label>
+                    </div>
+                    <div class="field">
+                        <input type='number' name='night_temp' placeholder='औसत रात का तापमान (सेल्सियस)*' step="0.01"  min=0 max='60' required>
+                    </div>
+                </div>
+
+                <div class="rowt">
+                    <div class='label'>
+                        <label>औसत वर्षा*</label>
+                    </div>
+                    <div class="field">
+                    <input type='text' name='rainfall' id='rainfall' placeholder='औसत वर्षा (सेंटीमीटर)' step="0.01"  min=0 required>
+                    </div>
+                </div>
+
+                <div class="rowt">
+                    <div class='labelr'>
+                        <label>बाढ़*</label>
+                    </div>
+                    <div class="fieldr">
+                        <div class='rowt'>
+                            <div class='radio1'>
+                                <label class="containert">हाँ<input type="radio" name='flood' value='Yes' class='radio'><span class="checkmark"></span></label>
+                            </div>
+                            <div class='radio2'>
+                                <label class="containert">नहीं<input type="radio" name='flood' value='No' class='radio'><span class="checkmark"></span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="rowt">
+                    <div class='labelr'>
+                        <label>सूखा*</label>
+                    </div>
+                    <div class="fieldr">
+                        <div class='rowt'>
+                            <div class='radio1'>
+                                <label class="containert">हाँ<input type="radio" name='drought' value='Yes' class='radio'><span class="checkmark"></span></label>
+                            </div>
+                            <div class='radio2'>
+                                <label class="containert">नहीं<input type="radio" name='drought' value='No' class='radio'><span class="checkmark"></span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="rowt">
+                    <div class='labelr'>
+                        <label>आग*</label>
+                    </div>
+                    <div class="fieldr">
+                        <div class='rowt'>
+                            <div class='radio1'>
+                                <label class="containert">हाँ<input type="radio" name='fire' value='Yes' class='radio'><span class="checkmark"></span></label>
+                            </div>
+                            <div class='radio2'>
+                                <label class="containert">नहीं<input type="radio" name='fire' value='No' class='radio'><span class="checkmark"></span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class='rowt'>
+                    <input type='submit' name='save' value='सब्मिट' id='submit_btn'>
+                </div>
+            </form>
+        </div>
+        <p align="center" id='about_data'><b> कॉपीराइट &copy; बाइ बिहार सरकार </b></p>
+    </div>
+
+    <script>
+        window.onload = language()
+        window.onload = call()
+        
+        function call(){
+            var s1 = document.getElementById('language');
+            if (s1.value == 'english'){
+                document.getElementById("div_english").style.display = "block";
+                document.getElementById("linke1").style.display = "block";
+                document.getElementById("linke2").style.display = "block";
+                document.getElementById("div_hindi").style.display = "none";
+                document.getElementById("linkh1").style.display = "none";
+                document.getElementById("linkh2").style.display = "none";
+                localStorage.setItem("lang", "english");
+            }
+            else if(s1.value == 'hindi'){
+                document.getElementById("div_english").style.display = "none";
+                document.getElementById("linke1").style.display = "none";
+                document.getElementById("linke2").style.display = "none";
+                document.getElementById("div_hindi").style.display = "block";
+                document.getElementById("linkh1").style.display = "block";
+                document.getElementById("linkh2").style.display = "block";
+                localStorage.setItem("lang", "hindi");
+            }
+        }   
+
+        function language(){  
+            var lang = localStorage.getItem("lang");
+            document.getElementById("language").value = lang;
+        } 
+
+        function myFunction() {
+        var x = document.getElementById("myTopnav");
+        if (x.className === "topnav") {
+            x.className += " responsive";
+        } else {
+            x.className = "topnav";
+            }
+        }     
+    </script>
+<!-- !Disclaimer - you must not use this website's template in as it is form - please feel free 
+to contact me @ chiragchauhan12323@gmail.com for the source code and implementation in your use case -
+After all I too did take some help from the community -->
+{% endblock %}

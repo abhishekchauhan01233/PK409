@@ -1,0 +1,179 @@
+{% extends 'main/base.html' %}
+{% block title %} FARMER {% endblock %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div class="topnav" id="myTopnav">
+        <a href='/'><img id='logo' src = "/media/images/logo.png", height=38, width=41></a>
+        <a href='/' id='home' class="active"><div id ='linke1'><i id='home_icon' class="fa fa-home"></i> Home</div></a>
+        <a href='/' id='home' class="active"><div id ='linkh1' hidden><i id='home_icon' class="fa fa-home"></i> होमपेज</div></a>
+        <a href='/profile' id='home'><div id ='linke2'><i id='home_icon' class="fa fa-user-circle"></i> Profile</div></a>
+        <a href='/profile' id='home'><div id ='linkh2' hidden><i id='home_icon' class="fa fa-user-circle"></i> प्रोफ़ाइल</div></a>
+        <a href='/feedback' id='home'><div id ='linke3'><i id='home_icon' class="fa fa-commenting"></i> Feedback</div></a>
+        <a href='/feedback' id='home'><div id ='linkh3' hidden><i id='home_icon' class="fa fa-commenting"></i> प्रतिपुष्टि</div></a>
+        <a href='/contact' id='contact_home'><div id ='linke4'><i id='phone_icon' class="fa fa-phone"></i> Contact </div></a>
+        <a href='/contact' id='contact_home'><div id ='linkh4' hidden><i id='phone_icon' class="fa fa-phone"></i> संपर्क करें</div></a>
+        <a id='btn'>
+            <form method='POST'>
+                {% csrf_token %} 
+                <input type='submit' name='lsave' value='Logout' id='logout_btn'>
+            </form>
+        </a>  
+        <a id='select_lang'><select class="lang" name="language" onchange="call()" id='language'>
+            <option value='english'>English</option>
+            <option value='hindi'>Hindi</option>
+        </select></a>
+        <a href="javascript:void(0);" class="icon" onclick="myFunction()"><i id='bars' class="fa fa-bars"></i></a>
+    </div>
+
+    <div id='div_english'>
+        <div class='header_student'>
+            <div class='row'>
+                <div class='logo_m'>
+                    <a href='/'><img id='logo_id_m' src = "/media/images/logo.png", height=270, width=275></a>
+                </div>
+                <div class='title_m'>
+                    <h1 id='row1_m'>Agricultral and Rural Departement</h1>
+                    <h1 id='row2_m'>(Govt. of Bihar)</h1> 
+                </div>
+            </div>
+        </div>
+        
+        <h1 id='hello'><b> Hello {{ data.first_name }}</b></h1>
+
+        <div class="main_home animated bounceInLeft">
+
+            {% if messages %}
+                {% for message in messages %}
+                    <div>
+                        <h3 id='message'>{{ message }}</h3>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <div class='rowt'>
+                <div class='a'>
+                    <form method='POST'>
+                        {% csrf_token %}
+                        <input type= 'submit' name='psave' value='Your Profile' id='profile_home_button'>
+                        <input type= 'submit' name='csave' value='Submit Claim' id='claim_home_button'>
+                        <input type= 'submit' name='fsave' value='Feedback' id='feedback_home_button'>
+                    </form>
+                </div>
+            </div>
+
+            <div class='rowt'>
+                <div class='b'>
+                    <form method='POST'>
+                        {% csrf_token %}
+                        <input type= 'submit' name='lsave' value='Logout' id='logout_home_button'>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <p align="center" id='about_data'><b> Copyright &copy; by Bihar Government </b></p>
+    </div>
+
+    
+    <div id='div_hindi' hidden>
+        <div class='header_student'>
+            <div class='row'>
+                <div class='logo_m'>
+                    <a href='/'><img id='logo_id_m' src = "/media/images/logo.png", height=270, width=275></a>
+                </div>
+                <div class='title_m'>
+                    <h1 id='row1_m'>कृषि और ग्रामीण विभाग</h1>
+                    <h1 id='row2_m'>(बिहार सरकार)</h1>
+                </div>
+            </div>
+        </div>
+        
+        <h1 id='hello'><b> नमस्ते {{ data.first_name }}</b></h1>
+
+        <div class="main_home animated bounceInLeft">
+
+            {% if messages %}
+                {% for message in messages %}
+                    <div>
+                        <h3 id='message'>{{ message }}</h3>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <div class='rowt'>
+                <div class='a'>
+                    <form method='POST'>
+                        {% csrf_token %}
+                        <input type= 'submit' name='psave' value='आपका प्रोफ़ाइल' id='profile_home_button'>
+                        <input type= 'submit' name='csave' value='दावा प्रस्तुत करें' id='claim_home_button'>
+                        <input type= 'submit' name='fsave' value='प्रतिपुष्टि' id='feedback_home_button'>
+                    </form>
+                </div>
+            </div>
+
+            <div class='rowt'>
+                <div class='b'>
+                    <form method='POST'>
+                        {% csrf_token %}
+                        <input type= 'submit' name='lsave' value='लॉग आउट' id='logout_home_button'>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <p align="center" id='about_data'><b> कॉपीराइट &copy; बाइ बिहार सरकार </b></p>
+    </div>
+<!-- !Disclaimer - you must not use this website's template in as it is form - please feel free 
+to contact me @ chiragchauhan12323@gmail.com for the source code and implementation in your use case -
+After all I too did take some help from the community -->
+
+    <script>
+        window.onload = language()
+        window.onload = call()
+
+        function call(){
+            var s1 = document.getElementById('language');
+            if (s1.value == 'english'){
+                document.getElementById("div_english").style.display = "block";
+                document.getElementById("linke1").style.display = "block";
+                document.getElementById("linke2").style.display = "block";
+                document.getElementById("linke3").style.display = "block";
+                document.getElementById("linke4").style.display = "block";
+                document.getElementById("div_hindi").style.display = "none";
+                document.getElementById("linkh1").style.display = "none";
+                document.getElementById("linkh2").style.display = "none";
+                document.getElementById("linkh3").style.display = "none";
+                document.getElementById("linkh4").style.display = "none";
+                localStorage.setItem("lang", "english");
+            }
+            else if(s1.value == 'hindi'){
+                document.getElementById("div_english").style.display = "none";
+                document.getElementById("linke1").style.display = "none";
+                document.getElementById("linke2").style.display = "none";
+                document.getElementById("linke3").style.display = "none";
+                document.getElementById("linke4").style.display = "none";
+                document.getElementById("div_hindi").style.display = "block";
+                document.getElementById("linkh1").style.display = "block";
+                document.getElementById("linkh2").style.display = "block";
+                document.getElementById("linkh3").style.display = "block";
+                document.getElementById("linkh4").style.display = "block";
+                localStorage.setItem("lang", "hindi");
+            }
+        }
+
+        function language(){  
+            var lang = localStorage.getItem("lang");
+            document.getElementById("language").value = lang;
+        }
+
+        function myFunction() {
+        var x = document.getElementById("myTopnav");
+        if (x.className === "topnav") {
+            x.className += " responsive";
+        } else {
+            x.className = "topnav";
+            }
+        }
+    </script>
+{% endblock %}    

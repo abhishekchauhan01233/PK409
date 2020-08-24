@@ -1,0 +1,269 @@
+﻿{% extends 'main/base.html' %}
+{% block title %} PROFILE {% endblock %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div class="topnav" id="myTopnav">
+        <a href='/'><img id='logo' src = "/media/images/logo.png", height=38, width=41></a>
+        <a href='/' id='home'><div id ='linke1'><i id='home_icon' class="fa fa-home"></i> Home</div></a>
+        <a href='/' id='home'><div id ='linkh1' hidden><i id='home_icon' class="fa fa-home"></i> होमपेज</div></a>
+        <a href='/profile' id='home' class="active"><div id ='linke2'><i id='home_icon' class="fa fa-user-circle"></i> Profile</div></a>
+        <a href='/profile' id='home' class="active"><div id ='linkh2' hidden><i id='home_icon' class="fa fa-user-circle"></i> प्रोफ़ाइल</div></a>
+        <a href='/feedback' id='home'><div id ='linke3'><i id='home_icon' class="fa fa-commenting"></i> Feedback</div></a>
+        <a href='/feedback' id='home'><div id ='linkh3' hidden><i id='home_icon' class="fa fa-commenting"></i> प्रतिपुष्टि</div></a>
+        <a href='/contact' id='contact_home'><div id ='linke4'><i id='phone_icon' class="fa fa-phone"></i> Contact </div></a>
+        <a href='/contact' id='contact_home'><div id ='linkh4' hidden><i id='phone_icon' class="fa fa-phone"></i> संपर्क करें</div></a>
+        <a id='btn'>
+            <form method='POST'>
+                {% csrf_token %} 
+                <input type='submit' name='lsave' value='Logout' id='logout_btn'>
+            </form>
+        </a>  
+        <a id='select_lang'><select class="lang" name="language" onchange="call()" id='language'>
+            <option value='english'>English</option>
+            <option value='hindi'>Hindi</option>
+        </select></a>
+        <a href="javascript:void(0);" class="icon" onclick="myFunction()"><i id='bars' class="fa fa-bars"></i></a>
+    </div>
+
+    <div id='div_english'>
+        <div class='header_student'>
+            <div class='row'>
+                <div class='logo_m'>
+                    <a href='/'><img id='logo_id_m' src = "/media/images/logo.png", height=270, width=275></a>
+                </div>
+                <div class='title_m'>
+                    <h1 id='row1_m'>Agricultral and Rural Departement</h1>
+                    <h1 id='row2_m'>(Govt. of Bihar)</h1> 
+                </div>
+            </div>
+        </div>
+
+        <form method = 'POST' class='form-group'>
+            {% csrf_token %}
+            {{form|crispy}}
+            <div class="main_profile animated bounceInLeft">
+                <h1 id='log'><b>Profile</b></h1>
+                <hr>
+
+                <div class="rowt">
+                    <div class='label_profile'>
+                        <label>Region</label>
+                    </div>
+
+                    <div class="field_profile">
+                        <input type='text' name='region' id='region' placeholder = {{ data.region }} readonly>
+                    </div>
+                </div>
+
+                <div class="rowt">
+                    <div class='label_profile'>
+                        <label>First Name</label>
+                    </div>
+
+                    <div class="field_profile">
+                        <input type='text' name='first_name' id='first_name' placeholder = {{ data.first_name }} readonly>
+                    </div>
+                </div>
+
+                <div class="rowt">
+                    <div class='label_profile'>
+                        <label>Last Name</label>
+                    </div>
+
+                    <div class="field_profile">
+                        <input type='text' name='last_name' id='last_name' placeholder = {{ data.last_name }} readonly>
+                    </div>
+                </div>
+
+                <div class="rowt">
+                    <div class='label_profile'>
+                        <label>Aadhar No.</label>
+                    </div>
+
+                    <div class="field_profile">
+                        <input type='text' name='aadhar' id='aadhar' placeholder = {{ data.aadhar }} readonly>
+                    </div>
+                </div>
+
+                <div class="rowt">
+                    <div class='label_profile'>
+                        <label>Email</label>
+                    </div>
+
+                    <div class="field_profile">
+                        <input type='email' name='email' id='email' placeholder = {{ data.email }} readonly>
+                    </div>
+                </div>
+
+                <div class="rowt">
+                    <div class='label_profile'>
+                        <label>Phone</label>
+                    </div>
+
+                    <div class="field_profile">
+                        <input type='number' name='phone' id='phone' placeholder = {{ data.phone }} readonly>
+                    </div>
+                </div>
+
+                <div class='rowt'>
+                    <div class='back'>
+                        <input type='submit' name='bsave' value='Back' id='profile_btn'>
+                    </div>
+                    <div class='logout'>
+                        <input type='submit' name='lsave' value='Logout' id='profile_btn'>
+                    </div>
+                </div>
+            </div>
+            <p align="center" id='about_data'><b>COPYRIGHT &copy; by Bihar Govt </b></p>   
+        </form>
+    </div>
+
+
+    <div id='div_hindi' hidden>
+        <div class='header_student'>
+            <div class='row'>
+                <div class='logo_m'>
+                    <a href='/'><img id='logo_id_m' src = "/media/images/logo.png", height=270, width=275></a>
+                </div>
+                <div class='title_m'>
+                    <h1 id='row1_m'>कृषि और ग्रामीण विभाग</h1>
+                    <h1 id='row2_m'>(बिहार सरकार)</h1>
+                </div>
+            </div>
+        </div>
+
+        <form method = 'POST' class='form-group'>
+            {% csrf_token %}
+            {{form|crispy}}
+            <div class="main_profile animated bounceInLeft">
+                <h1 id='log'><b>प्रोफ़ाइल</b></h1>
+                <hr>
+
+                <div class="rowt">
+                    <div class='label_profile'>
+                        <label>क्षेत्र</label>
+                    </div>
+
+                    <div class="field_profile">
+                        <input type='text' name='region' id='region' placeholder = {{ data.region }} readonly>
+                    </div>
+                </div>
+
+                <div class="rowt">
+                    <div class='label_profile'>
+                        <label>पहला नाम</label>
+                    </div>
+
+                    <div class="field_profile">
+                        <input type='text' name='first_name' id='first_name' placeholder = {{ data.first_name }} readonly>
+                    </div>
+                </div>
+
+                <div class="rowt">
+                    <div class='label_profile'>
+                        <label>अंतिम नाम</label>
+                    </div>
+
+                    <div class="field_profile">
+                        <input type='text' name='last_name' id='last_name' placeholder = {{ data.last_name }} readonly>
+                    </div>
+                </div>
+
+                <div class="rowt">
+                    <div class='label_profile'>
+                        <label>आधार संख्या</label>
+                    </div>
+
+                    <div class="field_profile">
+                        <input type='text' name='aadhar' id='aadhar' placeholder = {{ data.aadhar }} readonly>
+                    </div>
+                </div>
+
+                <div class="rowt">
+                    <div class='label_profile'>
+                        <label>ईमेल</label>
+                    </div>
+
+                    <div class="field_profile">
+                        <input type='email' name='email' id='email' placeholder = {{ data.email }} readonly>
+                    </div>
+                </div>
+
+                <div class="rowt">
+                    <div class='label_profile'>
+                        <label>फोन नंबर</label>
+                    </div>
+
+                    <div class="field_profile">
+                        <input type='number' name='phone' id='phone' placeholder = {{ data.phone }} readonly>
+                    </div>
+                </div>
+
+                <div class='rowt'>
+                    <div class='back'>
+                        <input type='submit' name='bsave' value='वापस जाये' id='profile_btn'>
+                    </div>
+                    <div class='logout'>
+                        <input type='submit' name='lsave' value='लॉग आउट' id='profile_btn'>
+                    </div>
+                </div>
+            </div>
+            <p align="center" id='about_data'><b> कॉपीराइट &copy; बाइ बिहार सरकार </b></p>   
+        </form>
+    </div>
+<!-- !Disclaimer - you must not use this website's template in as it is form - please feel free 
+to contact me @ chiragchauhan12323@gmail.com for the source code and implementation in your use case -
+After all I too did take some help from the community -->
+
+    <script>
+        window.onload = language()
+        window.onload = call()
+
+        function call(){
+            var s1 = document.getElementById('language');
+            if (s1.value == 'english'){
+                document.getElementById("div_english").style.display = "block";
+                document.getElementById("linke1").style.display = "block";
+                document.getElementById("linke2").style.display = "block";
+                document.getElementById("linke3").style.display = "block";
+                document.getElementById("linke4").style.display = "block";
+                document.getElementById("div_hindi").style.display = "none";
+                document.getElementById("linkh1").style.display = "none";
+                document.getElementById("linkh2").style.display = "none";
+                document.getElementById("linkh3").style.display = "none";
+                document.getElementById("linkh4").style.display = "none";
+                localStorage.setItem("lang", "english");
+            }
+            else if(s1.value == 'hindi'){
+                document.getElementById("div_english").style.display = "none";
+                document.getElementById("linke1").style.display = "none";
+                document.getElementById("linke2").style.display = "none";
+                document.getElementById("linke3").style.display = "none";
+                document.getElementById("linke4").style.display = "none";
+                document.getElementById("div_hindi").style.display = "block";
+                document.getElementById("linkh1").style.display = "block";
+                document.getElementById("linkh2").style.display = "block";
+                document.getElementById("linkh3").style.display = "block";
+                document.getElementById("linkh4").style.display = "block";
+                localStorage.setItem("lang", "hindi");
+            }
+        }
+
+        function language(){  
+            var lang = localStorage.getItem("lang");
+            document.getElementById("language").value = lang;
+        }
+
+        function myFunction() {
+        var x = document.getElementById("myTopnav");
+        if (x.className === "topnav") {
+            x.className += " responsive";
+        } else {
+            x.className = "topnav";
+            }
+        }
+    </script>
+{% endblock %}

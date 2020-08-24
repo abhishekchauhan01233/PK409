@@ -1,0 +1,476 @@
+﻿{% extends 'main/base.html' %}
+{% block title %} CLAIM {% endblock %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div class="topnav" id="myTopnav">
+        <a href='/'><img id='logo' src = "/media/images/logo.png", height=38, width=41></a>
+        <a href='/' id='home'><div id ='linke1'><i id='home_icon' class="fa fa-home"></i> Home</div></a>
+        <a href='/' id='home'><div id ='linkh1' hidden><i id='home_icon' class="fa fa-home"></i> होमपेज</div></a>
+        <a href='/profile' id='home'><div id ='linke2'><i id='home_icon' class="fa fa-user-circle"></i> Profile</div></a>
+        <a href='/profile' id='home'><div id ='linkh2' hidden><i id='home_icon' class="fa fa-user-circle"></i> प्रोफ़ाइल</div></a>
+        <a href='/feedback' id='home'><div id ='linke3'><i id='home_icon' class="fa fa-commenting"></i> Feedback</div></a>
+        <a href='/feedback' id='home'><div id ='linkh3' hidden><i id='home_icon' class="fa fa-commenting"></i> प्रतिपुष्टि</div></a>
+        <a href='/contact' id='contact_home'><div id ='linke4'><i id='phone_icon' class="fa fa-phone"></i> Contact </div></a>
+        <a href='/contact' id='contact_home'><div id ='linkh4' hidden><i id='phone_icon' class="fa fa-phone"></i> संपर्क करें</div></a>
+        <a id='btn'>
+            <form method='POST'>
+                {% csrf_token %} 
+                <input type='submit' name='lsave' value='Logout' id='logout_btn'>
+            </form>
+        </a>  
+        <a id='select_lang'><select class="lang" name="language" onchange="call()" id='language'>
+            <option value='english'>English</option>
+            <option value='hindi'>Hindi</option>
+        </select></a>
+        <a href="javascript:void(0);" class="icon" onclick="myFunction()"><i id='bars' class="fa fa-bars"></i></a>
+    </div>
+
+    <div id='div_english'>
+        <div class='header_student'>
+            <div class='row'>
+                <div class='logo_m'>
+                    <a href='/'><img id='logo_id_m' src = "/media/images/logo.png", height=270, width=275></a>
+                </div>
+                <div class='title_m'>
+                    <h1 id='row1_m'>Agricultral and Rural Departement</h1>
+                    <h1 id='row2_m'>(Govt. of Bihar)</h1> 
+                </div>
+            </div>
+        </div>
+    
+        <div class="main_farmer animated bounceInLeft">
+            <div class="rowt">
+                <h1 id='log'><b> Hello {{ data.first_name }}</b></h1>
+            </div>
+
+            {% if messages %}
+                {% for message in messages %}
+                    <div>
+                        <h3 id='message'>{{ message }}</h3>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <form method='POST'>
+                {% csrf_token %}
+
+                <div class="rowt">
+                    <div class='label'>
+                        <label>Region*</label>
+                    </div>
+                    <div class="field">
+                        <input type='text' name='region' value={{ data.region }} readonly>
+                    </div>
+                </div>
+
+                <div class="rowt">
+                    <div class='label'>
+                        <label>Crop Type*</label>
+                    </div>
+                    <div class="field">
+                        <select id="crop_type" name="crop_type" class='select_login' required>
+                            <option value=''>--Crop Type--</option>
+                            <option value='Rabi'>Rabi</option>
+                            <option value='Kharif'>Kharif</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="rowt">
+                    <div class='label'>
+                        <label>Crop Name*</label>
+                    </div>
+                    <div class="field">
+                        <input type='text' name='crop_name' placeholder='Crop Name*' required>
+                    </div>
+                </div>
+
+                <div class="rowt">
+                    <div class='label'>
+                        <label>Seed Type*</label>
+                    </div>
+                    <div class="field">
+                        <select id="seed_type" name="seed_type" class='select_login' required>
+                            <option value=''>--Seed Type--</option>
+                            <option value='Hybrid'>Hybrid</option>
+                            <option value='Local'>Local</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="rowt">
+                    <div class='label'>
+                        <label>Cycle Start*</label>
+                    </div>
+                    <div class="field">
+                    <input type='date' name='cycle_start' id='cycle_start' min="2019-01-01" max="2020-12-07" onchange="populate()" required> 
+                    </div>
+                </div>
+
+                <div class="rowt">
+                    <div class='label'>
+                        <label>Cycle End*</label>
+                    </div>
+                    <div class="field">
+                        <input type='date' name='cycle_end' id='cycle_end' min="2019-01-01" max="2020-12-07" onchange="populate()" required>
+                    </div>
+                </div>
+
+                <div class="rowt">
+                    <div class='label'>
+                        <label>Crop Cylce(Days)*</label>
+                    </div>
+                    <div class="field">
+                        <input type='text' name='days' id='days' placeholder='No. of Days' required>
+                    </div>
+                </div>
+
+                <div class="rowt">
+                    <div class='label'>
+                        <label>Area*</label>
+                    </div>
+                    <div class="field">
+                        <input type='number' name='area' id='area' placeholder='Area(sq meter)' min=0 max='100000' required>
+                    </div>
+                </div>
+
+                <div class="rowt">
+                    <div class='label'>
+                        <label>Irrigation*</label>
+                    </div>
+                    <div class="field">
+                        <input type='number' name='irrigation' placeholder='Amount of water(cm)*' title='digits are required ' required>
+                    </div>
+                </div>
+
+                <div class="rowt">
+                    <div class='label'>
+                        <label>Fertilizers*</label>
+                    </div>
+                    <div class="field">
+                        <input type='number' name='fertilizers' placeholder='Amount of fertilizers(kg)*' title='digits are required ' required>
+                    </div>
+                </div>
+
+                <div class="rowt">
+                    <div class='label'>
+                        <label>Pesticides*</label>
+                    </div>
+                    <div class="field">
+                        <input type='number' name='pesticides' placeholder='Amount of pesticides(litres)*' title='digits are required ' required>
+                    </div>
+                </div>
+
+                <div class="rowt">
+                    <div class='label'>
+                        <label>Cultivation Cost*</label>
+                    </div>
+                    <div class="field">
+                        <input type='number' name='cultivation_cost' placeholder='Rs/10kg*' title='digits are required ' required>
+                    </div>
+                </div>
+
+                <div class="rowt">
+                    <div class='label'>
+                        <label>MSP(Govt.)*</label>
+                    </div>
+                    <div class="field">
+                        <input type='number' name='msp' placeholder='Rs/10kg*' title='digits are required ' required>
+                    </div>
+                </div>
+
+                <div class="rowt">
+                    <div class='label'>
+                        <label>Production*</label>
+                    </div>
+                    <div class="field">
+                        <input type='number' name='production' placeholder='Amount of production*' title='digits are required ' required>
+                    </div>
+                </div>
+
+                <input type='text' id='year' name='year' onchange="populate2()" hidden>
+                <input type='text' id='month' name='month' onchange="populate2()" hidden>
+
+                <div class='rowt'>
+                    <input type='submit' name='save' value='Submit' id='submit_btn' onclick="populate2()">
+                </div>
+            </form>
+        </div>
+        <p align="center" id='about_data'><b>COPYRIGHT &copy; by Bihar Govt </b></p>
+    </div>
+
+
+
+    <div id='div_hindi' hidden>
+        <div class='header_student'>
+            <div class='row'>
+                <div class='logo_m'>
+                    <a href='/'><img id='logo_id_m' src = "/media/images/logo.png", height=270, width=275></a>
+                </div>
+                <div class='title_m'>
+                    <h1 id='row1_m'>कृषि और ग्रामीण विभाग</h1>
+                    <h1 id='row2_m'>(बिहार सरकार)</h1>
+                </div>
+            </div>
+        </div>
+    
+        <div class="main_farmer animated bounceInLeft">
+            <div class="rowt">
+                <h1 id='log'><b> नमस्ते {{ data.first_name }}</b></h1>
+            </div>
+
+            {% if messages %}
+                {% for message in messages %}
+                    <div>
+                        <h3 id='message'>{{ message }}</h3>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <form method='POST'>
+                {% csrf_token %}
+
+                <div class="rowt">
+                    <div class='label'>
+                        <label>क्षेत्र*</label>
+                    </div>
+                    <div class="field">
+                        <input type='text' name='region' value={{ data.region }} readonly>
+                    </div>
+                </div>
+
+                <div class="rowt">
+                    <div class='label'>
+                        <label>फसल का प्रकार*</label>
+                    </div>
+                    <div class="field">
+                        <select id="crop_type" name="crop_type" class='select_login' required>
+                            <option value=''>--फसल का प्रकार--</option>
+                            <option value='Rabi'>रबी</option>
+                            <option value='Kharif'>खरीफ</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="rowt">
+                    <div class='label'>
+                        <label>फसल का नाम*</label>
+                    </div>
+                    <div class="field">
+                        <input type='text' name='crop_name' placeholder='फसल का नाम*' required>
+                    </div>
+                </div>
+
+                <div class="rowt">
+                    <div class='label'>
+                        <label>बीज प्रकार*</label>
+                    </div>
+                    <div class="field">
+                        <select id="seed_type" name="seed_type" class='select_login' required>
+                            <option value=''>--बीज प्रकार--</option>
+                            <option value='Hybrid'>संकर</option>
+                            <option value='Local'>स्थानीय</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="rowt">
+                    <div class='label'>
+                        <label>साइकल शुरू*</label>
+                    </div>
+                    <div class="field">
+                    <input type='date' name='cycle_starth' id='cycle_starth' min="2019-01-01" max="2020-12-07" onchange="populateh()" required> 
+                    </div>
+                </div>
+
+                <div class="rowt">
+                    <div class='label'>
+                        <label>साइकल  समाप्त *</label>
+                    </div>
+                    <div class="field">
+                        <input type='date' name='cycle_endh' id='cycle_endh' min="2019-01-01" max="2020-12-07" onchange="populateh()" required>
+                    </div>
+                </div>
+
+                <div class="rowt">
+                    <div class='label'>
+                        <label>फसल चक्र (दिन)</label>
+                    </div>
+                    <div class="field">
+                        <input type='text' name='days' id='daysh' placeholder='दिनों की संख्या*' required>
+                    </div>
+                </div>
+
+                <div class="rowt">
+                    <div class='label'>
+                        <label>क्षेत्र फल*</label>
+                    </div>
+                    <div class="field">
+                        <input type='number' name='area' id='area' placeholder='क्षेत्र फल (मीटर वर्ग)*' min=0 max='100000' required>
+                    </div>
+                </div>
+
+                <div class="rowt">
+                    <div class='label'>
+                        <label>सिंचाई*</label>
+                    </div>
+                    <div class="field">
+                        <input type='number' name='irrigation' placeholder='पानी की मात्रा (सेंटीमीटर)*' title='अंक आवश्यक हैं ' required>
+                    </div>
+                </div>
+
+                <div class="rowt">
+                    <div class='label'>
+                        <label>उर्वरक*</label>
+                    </div>
+                    <div class="field">
+                        <input type='number' name='fertilizers' placeholder='उर्वरकों की मात्रा (किलोग्राम)*' title='अंक आवश्यक हैं ' required>
+                    </div>
+                </div>
+
+                <div class="rowt">
+                    <div class='label'>
+                        <label>कीटनाशक*</label>
+                    </div>
+                    <div class="field">
+                        <input type='number' name='pesticides' placeholder='कीटनाशकों की मात्रा (लीटर)*' title='अंक आवश्यक हैं ' required>
+                    </div>
+                </div>
+
+                <div class="rowt">
+                    <div class='label'>
+                        <label>खेती की लागत*</label>
+                    </div>
+                    <div class="field">
+                        <input type='number' name='cultivation_cost' placeholder='रुपये प्रति 10 किलोग्राम*' title='अंक आवश्यक हैं' required>
+                    </div>
+                </div>
+
+                <div class="rowt">
+                    <div class='label'>
+                        <label>अधिकतम विक्रय मूल्य (सरकार)*</label>
+                    </div>
+                    <div class="field">
+                        <input type='number' name='msp' placeholder='रुपये प्रति 10 किलोग्राम*' title='अंक आवश्यक हैं' required>
+                    </div>
+                </div>
+
+                <div class="rowt">
+                    <div class='label'>
+                   <label>उत्पादन*</label>
+                    </div>
+                    <div class="field">
+                        <input type='number' name='production' placeholder='उत्पादन की मात्रा*' title='अंक आवश्यक हैं  ' required>
+                    </div>
+                </div>
+
+                <input type='text' id='yearh' name='year' onchange="populate2h()" hidden>
+                <input type='text' id='monthh' name='month' onchange="populate2h()" hidden>
+
+                <div class='rowt'>
+                    <input type='submit' name='save' value='सब्मिट' id='submit_btn' onclick="populate2h()">
+                </div>
+            </form>
+        </div>
+        <p align="center" id='about_data'><b> कॉपीराइट &copy; बाइ बिहार सरकार </b></p>
+    </div>
+<!-- !Disclaimer - you must not use this website's template in as it is form - please feel free 
+to contact me @ chiragchauhan12323@gmail.com for the source code and implementation in your use case -
+After all I too did take some help from the community -->
+
+    <script>
+        window.onload = language()
+        window.onload = call()
+        
+        function populate(){
+            var date1 = new Date(document.getElementById("cycle_start").value);
+            var date2 = new Date(document.getElementById("cycle_end").value);
+
+            var time = date2.getTime() - date1.getTime();
+            var day = time/(1000*3600*24);
+
+            var a = document.getElementById('days');
+            a.value = day; 
+        }
+
+        function populateh(){
+            var date1 = new Date(document.getElementById("cycle_starth").value);
+            var date2 = new Date(document.getElementById("cycle_endh").value);
+
+            var time = date2.getTime() - date1.getTime();
+            var day = time/(1000*3600*24);
+
+            var a = document.getElementById('daysh');
+            a.value = day; 
+        }
+
+        function populate2(){
+            alert('All the figures I have filled are true to the best of my knowledge. If I am found lying to the government then government has all the rights to take strict legal action against me')
+            var date2 = new Date(document.getElementById("cycle_end").value);
+            var year = date2.getFullYear();
+            var month = date2.getMonth()+1;
+            var b = document.getElementById('year');
+            var c = document.getElementById('month');
+            b.value = year;
+            c.value = month;
+        }
+
+        function populate2h(){
+            onclick=alert('मेरे द्वारा भरे गए सभी आंकड़े मेरी जानकारी के अनुसार सही हैं।  अगर मैं सरकार से झूठ बोलता पाया जाता हूं तो सरकार के पास मेरे खिलाफ सख्त कानूनी कार्रवाई करने के सभी अधिकार हैं')
+            var date2 = new Date(document.getElementById("cycle_endh").value);
+            var year = date2.getFullYear();
+            var month = date2.getMonth()+1;
+            var b = document.getElementById('yearh');
+            var c = document.getElementById('monthh');
+            b.value = year;
+            c.value = month;
+        }
+
+        function call(){
+            var s1 = document.getElementById('language');
+            if (s1.value == 'english'){
+                document.getElementById("div_english").style.display = "block";
+                document.getElementById("linke1").style.display = "block";
+                document.getElementById("linke2").style.display = "block";
+                document.getElementById("linke3").style.display = "block";
+                document.getElementById("linke4").style.display = "block";
+                document.getElementById("div_hindi").style.display = "none";
+                document.getElementById("linkh1").style.display = "none";
+                document.getElementById("linkh2").style.display = "none";
+                document.getElementById("linkh3").style.display = "none";
+                document.getElementById("linkh4").style.display = "none";
+                localStorage.setItem("lang", "english");
+            }
+            else if(s1.value == 'hindi'){
+                document.getElementById("div_english").style.display = "none";
+                document.getElementById("linke1").style.display = "none";
+                document.getElementById("linke2").style.display = "none";
+                document.getElementById("linke3").style.display = "none";
+                document.getElementById("linke4").style.display = "none";
+                document.getElementById("div_hindi").style.display = "block";
+                document.getElementById("linkh1").style.display = "block";
+                document.getElementById("linkh2").style.display = "block";
+                document.getElementById("linkh3").style.display = "block";
+                document.getElementById("linkh4").style.display = "block";
+                localStorage.setItem("lang", "hindi");
+            }
+        }
+
+        function language(){  
+            var lang = localStorage.getItem("lang");
+            document.getElementById("language").value = lang;
+        }
+
+        function myFunction() {
+        var x = document.getElementById("myTopnav");
+        if (x.className === "topnav") {
+            x.className += " responsive";
+        } else {
+            x.className = "topnav";
+            }
+        }
+    </script>
+{% endblock %}    
